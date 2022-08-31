@@ -1,26 +1,38 @@
 import os
 
-# Workaround to use pymysql instead of mysqlclient
-import pymysql
-
-from .prod_without_db import *  # noqa
-
-pymysql.install_as_MySQLdb()
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": os.environ.get("MYSQL_DB_NAME"),
-        "USER": os.environ.get("MYSQL_USER"),
-        "PASSWORD": os.environ["MYSQL_PASSWORD"],
-        "HOST": os.environ.get("MYSQL_HOST"),
-        "PORT": os.environ.get("MYSQL_PORT"),
-        "OPTIONS": {
-            "charset": "utf8mb4",
-            "connect_timeout": 1,
+if os.environ.get("USE_POSTGRESQL", "false").lower() == "true":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ.get("POSTGRES_DB_NAME"),
+            "USER": os.environ.get("POSTGRES_USER"),
+            "PASSWORD": os.environ["POSTGRES_PASSWORD"],
+            "HOST": os.environ.get("POSTGRES_HOST"),
+            "PORT": os.environ.get("POSTGRES_PORT"),
         },
-    },
-}
+    }
+else:
+    # Workaround to use pymysql instead of mysqlclient
+    import pymysql
+
+    from .prod_without_db import *  # noqa
+
+    pymysql.install_as_MySQLdb()
+
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.environ.get("MYSQL_DB_NAME"),
+            "USER": os.environ.get("MYSQL_USER"),
+            "PASSWORD": os.environ["MYSQL_PASSWORD"],
+            "HOST": os.environ.get("MYSQL_HOST"),
+            "PORT": os.environ.get("MYSQL_PORT"),
+            "OPTIONS": {
+                "charset": "utf8mb4",
+                "connect_timeout": 1,
+            },
+        },
+    }
 
 RABBITMQ_USERNAME = os.environ.get("RABBITMQ_USERNAME")
 RABBITMQ_PASSWORD = os.environ.get("RABBITMQ_PASSWORD")

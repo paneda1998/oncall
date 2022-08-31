@@ -40,6 +40,7 @@ spec:
             {{- include "snippet.celery.env" . | nindent 12 }}
             {{- include "snippet.oncall.env" . | nindent 12 }}
             {{- include "snippet.mysql.env" . | nindent 12 }}
+            {{- include "snippet.postgres.env" . | nindent 12 }}
             {{- include "snippet.rabbitmq.env" . | nindent 12 }}
             {{- include "snippet.redis.env" . | nindent 12 }}
             {{- if .Values.env }}
