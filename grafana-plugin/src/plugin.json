@@ -68,7 +68,7 @@
       "type": "page",
       "name": "Schedules",
       "path": "/a/grafana-oncall-app/?page=schedules",
-      "role": "Viewer",
+      "action": "grafana-oncall-app.schedules:read",
       "addToNav": true
     },
     {
@@ -190,6 +190,24 @@
           "content": "{{ .SecureJsonData.onCallApiToken }}"
         }
       ]
+    }
+  ],
+  "roles": [
+    {
+      "role": {
+        "version": 1,
+        "uid": "plugins_app_grafana_oncall_app_reader",
+        "name": "plugins.app:grafana-oncall-app:reader",
+        "displayName": "OnCall Reader",
+        "description": "View everything in OnCall plugin",
+        "group": "OnCall",
+        "permissions": [
+          { "action": "plugins.app:access", "scope": "plugins.app:id:grafana-oncall-app" },
+          { "action": "grafana-oncall-app.schedules:read" }
+        ],
+        "hidden": false
+      },
+      "grants": ["Admin"]
     }
   ],
   "dependencies": {

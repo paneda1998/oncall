@@ -67,6 +67,8 @@ class ScheduleView(
     filter_backends = [SearchFilter]
     search_fields = ("name",)
 
+    rbac_permissions = {}
+
     queryset = OnCallSchedule.objects.all()
     serializer_class = PolymorphicScheduleSerializer
     create_serializer_class = PolymorphicScheduleCreateSerializer

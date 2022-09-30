@@ -47,23 +47,23 @@ services:
       mysql:
         condition: service_healthy
 
-  grafana:
-    image: "grafana/grafana:main"
-    restart: always
-    mem_limit: 500m
-    cpus: 0.5
-    environment:
-      GF_DATABASE_TYPE: mysql
-      GF_DATABASE_HOST: mysql
-      GF_DATABASE_USER: root
-      GF_DATABASE_PASSWORD: empty
-      GF_SECURITY_ADMIN_USER: oncall
-      GF_SECURITY_ADMIN_PASSWORD: oncall
-      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: grafana-oncall-app
-    volumes:
-      - ./grafana-plugin:/var/lib/grafana/plugins/grafana-plugin
-    ports:
-      - 3000:3000
-    depends_on:
-      mysql:
-        condition: service_healthy
+  # grafana:
+  #   image: "grafana/grafana:main"
+  #   restart: always
+  #   mem_limit: 500m
+  #   cpus: 0.5
+  #   environment:
+  #     GF_DATABASE_TYPE: mysql
+  #     GF_DATABASE_HOST: mysql
+  #     GF_DATABASE_USER: root
+  #     GF_DATABASE_PASSWORD: empty
+  #     GF_SECURITY_ADMIN_USER: oncall
+  #     GF_SECURITY_ADMIN_PASSWORD: oncall
+  #     GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: grafana-oncall-app
+  #   volumes:
+  #     - ./grafana-plugin:/var/lib/grafana/plugins/grafana-plugin
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #     mysql:
+  #       condition: service_healthy

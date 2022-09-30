@@ -9,6 +9,7 @@ import { get } from 'lodash-es';
 import { observer } from 'mobx-react';
 import moment from 'moment';
 import Emoji from 'react-emoji-render';
+// import { contextSrv } from 'grafana/app/core/core'; // TODO: proper install?
 
 import CardButton from 'components/CardButton/CardButton';
 import CursorPagination from 'components/CursorPagination/CursorPagination';
@@ -93,6 +94,7 @@ class Incidents extends React.Component<IncidentsPageProps, IncidentsPageState> 
   }
 
   render() {
+    // console.log(contextSrv);
     return (
       <div className={cx('root')}>
         {this.renderIncidentFilters()}
