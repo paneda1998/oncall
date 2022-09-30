@@ -27,6 +27,7 @@ export type PageDefinition = {
   text: string;
   hideFromTabs?: boolean;
   role?: 'Viewer' | 'Editor' | 'Admin';
+  action?: string;
 };
 
 export const pages: PageDefinition[] = [
@@ -66,6 +67,7 @@ export const pages: PageDefinition[] = [
     icon: 'calendar-alt',
     id: 'schedules',
     text: 'Schedules',
+    action: 'grafana-oncall-app.schedules:read',
   },
   {
     component: SchedulesPage,

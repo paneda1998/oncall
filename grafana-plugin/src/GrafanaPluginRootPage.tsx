@@ -110,6 +110,8 @@ export const Root = observer((props: AppRootProps) => {
 
   const store = useStore();
   const { backendLicense } = store;
+  // TODO: update type definition of window.grafanaBootData to properly type `user`
+  const { user: grafanaUser } = window.grafanaBootData;
 
   useEffect(() => {
     store.updateBasicData();
@@ -136,7 +138,7 @@ export const Root = observer((props: AppRootProps) => {
         pages,
         path: pathWithoutLeadingSlash,
         meta,
-        grafanaUser: window.grafanaBootData.user,
+        grafanaUser,
         enableLiveSettings: store.hasFeature(AppFeature.LiveSettings),
         enableCloudPage: store.hasFeature(AppFeature.CloudConnection),
         enableNewSchedulesPage: store.hasFeature(AppFeature.WebSchedules),
@@ -150,12 +152,21 @@ export const Root = observer((props: AppRootProps) => {
     onNavChanged(navModel);
   }, [navModel, onNavChanged]);
 
-  const Page = pages.find(({ id }) => id === page)?.component || pages[0].component;
+  const { action: pagePermissionAction, component: PageComponent } = pages.find(({ id }) => id === page) || pages[0];
+  // TODO: make a helper utility function that uses contextSrv.hasAccess with the orgRole as a fallback
+  const userHasAccess = pagePermissionAction ? !!grafanaUser.permissions[pagePermissionAction] : true;
 
   return (
     <DefaultPageLayout {...props}>
       <GrafanaTeamSelect />
-      <Page {...props} path={pathWithoutLeadingSlash} />
+      {userHasAccess ? (
+        <PageComponent {...props} path={pathWithoutLeadingSlash} />
+      ) : (
+        <>
+          {/* TODO: what should be the behavior here? a redirect? if so, to what page? or maybe an unauthorized component? */}
+          <p>You don't have access!</p>
+        </>
+      )}
     </DefaultPageLayout>
   );
 });

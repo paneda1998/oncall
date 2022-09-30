@@ -14,6 +14,7 @@ type Args = {
   page: string;
   grafanaUser: {
     orgRole: 'Viewer' | 'Editor' | 'Admin';
+    permissions: Record<string, boolean>;
   };
   enableLiveSettings: boolean;
   enableCloudPage: boolean;
@@ -40,7 +41,7 @@ export function useNavModel({
   return useMemo(() => {
     const tabs: NavModelItem[] = [];
 
-    pages.forEach(({ text, icon, id, role, hideFromTabs }) => {
+    pages.forEach(({ text, icon, id, role, action, hideFromTabs }) => {
       tabs.push({
         text,
         icon,
@@ -49,6 +50,7 @@ export function useNavModel({
         hideFromTabs:
           hideFromTabs ||
           (role === 'Admin' && grafanaUser.orgRole !== role) ||
+          (action && !grafanaUser.permissions[action]) ||
           (id === 'live-settings' && !enableLiveSettings) ||
           (id === 'cloud' && !enableCloudPage) ||
           (id === 'schedules-new' && !enableNewSchedulesPage),
