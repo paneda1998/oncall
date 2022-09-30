@@ -18,11 +18,12 @@ from common.api_helpers.filters import ByTeamFilter
 from common.api_helpers.mixins import RateLimitHeadersMixin, UpdateSerializerMixin
 from common.api_helpers.paginators import FiftyPageSizePaginator
 from common.insight_log import EntityEvent, write_resource_insight_log
+from common.rbac import ScheduleAccessPolicy
 
 
 class OnCallScheduleChannelView(RateLimitHeadersMixin, UpdateSerializerMixin, ModelViewSet):
     authentication_classes = (ApiTokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, ScheduleAccessPolicy)
 
     throttle_classes = [UserThrottle]
 
