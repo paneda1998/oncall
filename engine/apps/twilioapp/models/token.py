@@ -25,10 +25,10 @@ class TokenType(Enum):
     MobileVerification = "MobileVerify"
 
 
-class Token(BaseModel):
+class Tokenn(BaseModel):
     secret_fields = ["token"]
     objects = models.Manager()
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    token_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     creation_time = models.DateTimeField(default=timezone.now, blank=True)
     expiration_time = models.DateTimeField(null=False, blank=True)
     token = models.CharField(max_length=128, blank=False, null=False, db_index=True)

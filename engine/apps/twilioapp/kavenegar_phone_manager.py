@@ -6,7 +6,7 @@ from twilio.base.exceptions import TwilioRestException
 from rest_framework.exceptions import Throttled
 
 from apps.twilioapp.kavenegar_client import kavenegar_client
-from apps.twilioapp.models.token import Token, TokenType
+from apps.twilioapp.models.token import Tokenn, TokenType
 logger = logging.getLogger(__name__)
 
 
@@ -18,7 +18,7 @@ class PhoneManager:
 
     def send_verification_code(self):
         throttling_seconds = 120
-        recent_token = Token.objects.filter(
+        recent_token = Tokenn.objects.filter(
             user=self.user,
             token_type=TokenType.MobileVerification.value,
             creation_time__gt=timezone.now() - datetime.timedelta(seconds=throttling_seconds),
@@ -33,7 +33,7 @@ class PhoneManager:
                     remaining_wait_seconds=remaining_wait_seconds
                 )
             )
-        total_tokens_count = Token.objects.filter(user=self.user, token_type=TokenType.MobileVerification.value).count()
+        total_tokens_count = Tokenn.objects.filter(user=self.user, token_type=TokenType.MobileVerification.value).count()
         if total_tokens_count >= 20:
             raise Throttled(
                 detail=_(
@@ -42,7 +42,7 @@ class PhoneManager:
             )
 
         token_value = "".join(random.sample("0123456789", 6))
-        mobile_verification_token = Token.objects.create(
+        mobile_verification_token = Tokenn.objects.create(
             user=self.user,
             token_type=TokenType.MobileVerification.value,
             token=token_value,
@@ -56,7 +56,7 @@ class PhoneManager:
 
     def verify_phone_number(self, code):
         try:
-            mobile_verification_token = Token.objects.filter(
+            mobile_verification_token = Tokenn.objects.filter(
                 token=code,
                 user=self.user,
                 token_type=TokenType.MobileVerification.value,
