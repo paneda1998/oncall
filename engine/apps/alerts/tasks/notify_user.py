@@ -226,8 +226,8 @@ def notify_user_task(
     autoretry_for=(Exception,), retry_backoff=True, max_retries=1 if settings.DEBUG else None
 )
 def perform_notification(log_record_pk):
-    SMSMessage = apps.get_model("twilioapp", "SMSMessage")
-    PhoneCall = apps.get_model("twilioapp", "PhoneCall")
+    SMSMessage = apps.get_model("twilioapp", "KavenegarSMSMessage")
+    PhoneCall = apps.get_model("twilioapp", "KavenegarPhoneCall")
     # EmailMessage = apps.get_model("sendgridapp", "EmailMessage")  TODO: restore email notifications
     UserNotificationPolicy = apps.get_model("base", "UserNotificationPolicy")
     TelegramToUserConnector = apps.get_model("telegram", "TelegramToUserConnector")

@@ -38,7 +38,7 @@ from apps.base.messaging import get_messaging_backend_from_id
 from apps.base.utils import live_settings
 from apps.telegram.client import TelegramClient
 from apps.telegram.models import TelegramVerificationCode
-from apps.twilioapp.phone_manager import PhoneManager
+from apps.twilioapp.kavenegar_phone_manager import PhoneManager
 from apps.twilioapp.twilio_client import twilio_client
 from apps.user_management.models import Team, User
 from common.api_helpers.exceptions import Conflict
