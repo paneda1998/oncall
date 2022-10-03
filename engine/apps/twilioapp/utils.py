@@ -45,7 +45,7 @@ def process_call_data(call_sid, digit):
         # Success case
         response.say(f"You have pressed digit {digit}")
 
-        PhoneCall = apps.get_model("twilioapp", "PhoneCall")
+        PhoneCall = apps.get_model("twilioapp", "KavenegarPhoneCall")
         PhoneCall.objects.get_and_process_digit(call_sid=call_sid, digit=digit)
 
     else:

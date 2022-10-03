@@ -57,8 +57,8 @@ class FreePublicBetaSubscriptionStrategy(BaseSubscriptionStrategy):
         Count sms and calls together and they have common limit.
         For FreePublicBetaSubscriptionStrategy notifications are counted per day
         """
-        PhoneCall = apps.get_model("twilioapp", "PhoneCall")
-        SMSMessage = apps.get_model("twilioapp", "SMSMessage")
+        PhoneCall = apps.get_model("twilioapp", "KavenegarPhoneCall")
+        SMSMessage = apps.get_model("twilioapp", "KavenegarSMSMessage")
         now = datetime.now()
         day_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
         calls_today = PhoneCall.objects.filter(

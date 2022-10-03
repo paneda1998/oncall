@@ -55,7 +55,7 @@ class SMSStatusCallback(APIView):
         message_status = request.POST.get("MessageStatus")
         logging.info(f"SID: {message_sid}, Status: {message_status}")
 
-        SMSMessage = apps.get_model("twilioapp", "SMSMessage")
+        SMSMessage = apps.get_model("twilioapp", "KavenegarSMSMessage")
         SMSMessage.objects.update_status(message_sid=message_sid, message_status=message_status)
         return Response(data="", status=status.HTTP_204_NO_CONTENT)
 
@@ -70,7 +70,7 @@ class CallStatusCallback(APIView):
 
         logging.info(f"SID: {call_sid}, Status: {call_status}")
 
-        PhoneCall = apps.get_model("twilioapp", "PhoneCall")
+        PhoneCall = apps.get_model("twilioapp", "KavenegarPhoneCall")
         PhoneCall.objects.update_status(call_sid=call_sid, call_status=call_status)
 
         return Response(data="", status=status.HTTP_204_NO_CONTENT)
