@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 
-class KavenegarKavenegarSMSMessage(models.Model):
+class KavenegarSMSMessage(models.Model):
 
     exceeded_limit = models.BooleanField(null=True, default=None)
     represents_alert = models.ForeignKey("alerts.Alert", on_delete=models.SET_NULL, null=True, default=None)

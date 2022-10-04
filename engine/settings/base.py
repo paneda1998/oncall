@@ -4,7 +4,8 @@ from random import randrange
 from celery.schedules import crontab
 
 from common.utils import getenv_boolean, getenv_integer
-
+from dotenv import load_dotenv
+load_dotenv()
 VERSION = "dev-oss"
 # Indicates if instance is OSS installation.
 # It is needed to plug-in oss application and urls.

@@ -10,7 +10,8 @@ logger = logging.getLogger(__name__)
 class KavenegarClient:
     @property
     def kavenegar_api_client(self):
-        return kavenegar.KavenegarAPI(apikey=os.getenv("KAVENEGAR_API_KEY"))
+        # return kavenegar.KavenegarAPI(apikey=os.getenv("KAVENEGAR_API_KEY"))
+        return kavenegar.KavenegarAPI(apikey="74576A6E376350306144306468634956316D4478483964717535424B77575154")
 
 
     def send_message(self, body, to):
